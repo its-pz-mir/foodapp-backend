@@ -8,7 +8,7 @@ const router = require('./Routes');
 const cookieParser = require('cookie-parser');
 
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'https://food-app-eight-green.vercel.app' }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", router);
