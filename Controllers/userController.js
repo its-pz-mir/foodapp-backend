@@ -89,7 +89,7 @@ const verifyUser = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({ message: "Unauthorized", success: false });
         }
-        return res.status(200).json({ message: "User verified", success: true });
+        next();
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error", success: false });
