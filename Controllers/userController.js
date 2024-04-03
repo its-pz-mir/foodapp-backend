@@ -97,7 +97,7 @@ const verifyUser = async (req, res, next) => {
 const getUserData = async (req, res) => {
     // Code for getting user data
     try {
-        const token = req.cookie.token;
+        const token = req.cookies.token;
         if (!token) {
             return res.status(401).json({ message: "Unauthorized", success: false });
         }
