@@ -54,7 +54,7 @@ const loginController = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
         const token = createSecretToken(user._id, user.isAdmin);
-        res.cookie('token', token, { httpOnly: false });
+        res.cookie('token', token, { httpOnly: false, secure: true, sameSite: 'none' });
         return res.status(200).json({ message: "Login successful", success: true, token });
     } catch (error) {
         console.log(error);
