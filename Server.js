@@ -8,7 +8,7 @@ const router = require('./Routes');
 const cookieParser = require('cookie-parser');
 
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", router);
