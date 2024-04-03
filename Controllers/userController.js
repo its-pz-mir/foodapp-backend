@@ -54,7 +54,7 @@ const loginController = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
         const token = createSecretToken(user._id, user.isAdmin);
-        res.cookie("token", token);
+        res.cookie('token', token, { httpOnly: true });
         return res.status(200).json({ message: "Login successful", success: true, token });
     } catch (error) {
         console.log(error);
@@ -97,7 +97,7 @@ const verifyUser = async (req, res, next) => {
 const getUserData = async (req, res) => {
     // Code for getting user data
     try {
-        const token = req.cookies.token;
+        const token = req.cookie.token;
         if (!token) {
             return res.status(401).json({ message: "Unauthorized", success: false });
         }
@@ -105,11 +105,11 @@ const getUserData = async (req, res) => {
         if (!user) {
             return res.status(401).json({ message: "Unauthorized", success: false });
         }
-        const userData = await Auth.findById(user.id).select("-password");
+        const userData = await Auth.findById(user.id);
         if (!userData) {
             return res.status(404).json({ message: "User not found", success: false });
         }
-        return res.status(200).json({ message: "User data fetched successfully", success: true, userData });
+        return res.status(200).json({ message: "User found", success: true, data: userData });
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error" })
     }
