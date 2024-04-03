@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(
     cors({
-        origin: ["https://foodapp-backend-production.up.railway.app/"],
+        origin: ["http://localhost:3000"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
