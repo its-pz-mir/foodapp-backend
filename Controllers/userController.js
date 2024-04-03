@@ -53,7 +53,7 @@ const loginController = async (req, res) => {
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
-        const token = createSecretToken(user._id);
+        const token = createSecretToken(user._id, user.isAdmin);
         res.cookie("token", token, {
             withCredentials: true,
             httpOnly: false
@@ -89,7 +89,7 @@ const verifyUser = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({ message: "Unauthorized", success: false });
         }
-        next()
+        return res.status(200).json({ message: "User verified", success: true });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal Server Error", success: false });
@@ -119,5 +119,26 @@ const getUserData = async (req, res) => {
 }
 
 
+const verifyAdmin = async (req, res, next) => {
+    // Code for verifying admin
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: "Unauthorized", success: false });
+        }
+        const user = jwt.verify(token, secret);
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized", success: false });
+        }
+        if (!user.admin) {
+            return res.status(403).json({ message: "Forbidden", success: false });
+        }
+        return next();
+    } catch (error) {
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
 
-module.exports = { loginController, signupController, signoutController, getUserData, verifyUser };
+
+
+module.exports = { loginController, signupController, signoutController, getUserData, verifyUser, verifyAdmin };

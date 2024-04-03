@@ -1,5 +1,5 @@
 const express = require("express");
-const { loginController, signupController, signoutController, verifyUser, getUserData } = require("../Controllers/userController");
+const { loginController, signupController, signoutController, verifyUser, getUserData, verifyAdmin } = require("../Controllers/userController");
 const { getProductController, addProductController, deleteProduct } = require("../Controllers/productController");
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.route("/user").get(getUserData)
 
 // Product Routes
 router.route("/products").get(getProductController);
-router.route("/addproducts").post(verifyUser, addProductController)
+router.route("/addproducts").post(verifyAdmin, addProductController)
 router.route("/deleteproduct/:id").delete(verifyUser, deleteProduct)
 
 
