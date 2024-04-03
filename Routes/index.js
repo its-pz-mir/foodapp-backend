@@ -8,7 +8,7 @@ router.route("/login").post(loginController);
 router.route("/signup").post(signupController);
 router.route("/signout").delete(signoutController);
 router.route("/verify").get(verifyUser);
-router.route("/user/:id").get(getUserData)
+router.route("/user/").get(getUserData)
 
 
 // Product Routes
