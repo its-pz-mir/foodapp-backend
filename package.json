@@ -10,7 +10,7 @@
     "mongoose": "^8.2.4"
   },
   "scripts": {
-    "start": "nodemon Server.js"
+    "start": "node Server.js"
   },
   "name": "server",
   "version": "1.0.0",
