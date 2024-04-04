@@ -13,7 +13,7 @@ router.route("/user").post(getUserData)
 
 // Product Routes
 router.route("/products").get(getProductController);
-router.route("/addproducts").post(verifyAdmin, addProductController)
+router.route("/addproducts").post(addProductController)
 router.route("/deleteproduct/:id").delete(verifyUser, deleteProduct)
 
 
